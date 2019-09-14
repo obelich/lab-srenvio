@@ -7,7 +7,9 @@ Proyecto de prueba este pequeño sistema esta echo con el poder de Ruby On Rails
 * Rails 6.0.0
 * SqLite
 
+# Carpeta Adicionales
 
+En esta carpeta se encuentra el diagrama de la base de datos y otros archivos que son relacionados al proyecto
 
 # Diagrama Base de datos
 
