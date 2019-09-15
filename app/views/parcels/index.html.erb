@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Parcels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shipments</th>
+      <th>Length</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>Distance unit</th>
+      <th>Mass unit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parcels.each do |parcel| %>
+      <tr>
+        <td><%= parcel.shipments_id %></td>
+        <td><%= parcel.length %></td>
+        <td><%= parcel.width %></td>
+        <td><%= parcel.height %></td>
+        <td><%= parcel.weight %></td>
+        <td><%= parcel.distance_unit %></td>
+        <td><%= parcel.mass_unit %></td>
+        <td><%= link_to 'Show', parcel %></td>
+        <td><%= link_to 'Edit', edit_parcel_path(parcel) %></td>
+        <td><%= link_to 'Destroy', parcel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Parcel', new_parcel_path %>

@@ -1,0 +1,52 @@
+<%= form_with(model: parcel, local: true) do |form| %>
+  <% if parcel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(parcel.errors.count, "error") %> prohibited this parcel from being saved:</h2>
+
+      <ul>
+        <% parcel.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :shipments_id %>
+    <%= form.text_field :shipments_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :length %>
+    <%= form.number_field :length %>
+  </div>
+
+  <div class="field">
+    <%= form.label :width %>
+    <%= form.number_field :width %>
+  </div>
+
+  <div class="field">
+    <%= form.label :height %>
+    <%= form.number_field :height %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div class="field">
+    <%= form.label :distance_unit %>
+    <%= form.text_field :distance_unit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mass_unit %>
+    <%= form.text_field :mass_unit %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

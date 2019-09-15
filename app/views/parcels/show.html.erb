@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shipments:</strong>
+  <%= @parcel.shipments_id %>
+</p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @parcel.length %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @parcel.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @parcel.height %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @parcel.weight %>
+</p>
+
+<p>
+  <strong>Distance unit:</strong>
+  <%= @parcel.distance_unit %>
+</p>
+
+<p>
+  <strong>Mass unit:</strong>
+  <%= @parcel.mass_unit %>
+</p>
+
+<%= link_to 'Edit', edit_parcel_path(@parcel) %> |
+<%= link_to 'Back', parcels_path %>
