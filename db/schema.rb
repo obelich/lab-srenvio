@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_15_035622) do
+ActiveRecord::Schema.define(version: 2019_09_15_185318) do
 
   create_table "carriers", force: :cascade do |t|
     t.string "name", limit: 100, null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_035622) do
   end
 
   create_table "parcels", force: :cascade do |t|
-    t.integer "shipments_id", null: false
+    t.integer "shipment_id", null: false
     t.integer "length", null: false
     t.integer "width", null: false
     t.integer "height", null: false
@@ -30,16 +30,18 @@ ActiveRecord::Schema.define(version: 2019_09_15_035622) do
     t.string "mass_unit", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["shipments_id"], name: "index_parcels_on_shipments_id"
+    t.index ["shipment_id"], name: "index_parcels_on_shipment_id"
   end
 
   create_table "shipments", force: :cascade do |t|
-    t.integer "carriers_id", null: false
+    t.integer "carrier_id", null: false
     t.string "tracking_number", limit: 100, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["carriers_id"], name: "index_shipments_on_carriers_id"
+    t.integer "user_id"
+    t.index ["carrier_id"], name: "index_shipments_on_carrier_id"
     t.index ["tracking_number"], name: "index_shipments_on_tracking_number", unique: true
+    t.index ["user_id"], name: "index_shipments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_035622) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "parcels", "shipments", column: "shipments_id"
-  add_foreign_key "shipments", "carriers", column: "carriers_id"
+  add_foreign_key "parcels", "shipments"
+  add_foreign_key "shipments", "carriers"
+  add_foreign_key "shipments", "users"
 end
