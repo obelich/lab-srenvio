@@ -1,5 +1,7 @@
 class ParcelsController < ApplicationController
   before_action :set_parcel, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
 
   # GET /parcels
   # GET /parcels.json

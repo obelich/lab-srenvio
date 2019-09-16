@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  carrier: one
-  tracking_number: MyString
-
-two:
-  carrier: two
-  tracking_number: MyString

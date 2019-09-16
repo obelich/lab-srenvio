@@ -1,6 +1,6 @@
 class ShipmentsController < ApplicationController
   before_action :set_shipment, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /shipments
   # GET /shipments.json
   def index
@@ -24,7 +24,8 @@ class ShipmentsController < ApplicationController
   # POST /shipments
   # POST /shipments.json
   def create
-    @shipment = Shipment.new(shipment_params)
+    # @shipment = Shipment.new(shipment_params)
+    @shipment = current_user.shipments.build(shipment_params)
 
     respond_to do |format|
       if @shipment.save
@@ -69,6 +70,6 @@ class ShipmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shipment_params
-      params.require(:shipment).permit(:carrier_id, :tracking_number)
+      params.require(:shipment).permit(:carrier_id, :tracking_number, :user_id)
     end
 end
