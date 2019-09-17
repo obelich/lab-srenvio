@@ -11,17 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :carrier_id %>
-    <%= form.text_field :carrier_id %>
+  <div>
+    <label>Transportista</label> <br />
+    <%= form.collection_select :carrier_id, @carriers.order(:name),:id,:name,{ include_blank: true}, { class: 'form-control col-md-2'} %>
+
   </div>
 
   <div class="field">
     <%= form.label :tracking_number %>
-    <%= form.text_field :tracking_number %>
+    <%= form.text_field :tracking_number, class: 'form-control col-md-2' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="">
+    <br />
+    <br />
+    <%= link_to 'Regresar', shipments_path, class: 'btn btn-secondary' %> <%= form.submit 'Generar envio', class: 'btn btn-primary' %>
+
   </div>
 <% end %>

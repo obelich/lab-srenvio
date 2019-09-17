@@ -1,0 +1,27 @@
+<%= form_with(model: shipmentimport, local: true) do |form| %>
+  <% if shipmentimport.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shipmentimport.errors.count, "error") %> prohibited this shipmentimport from being saved:</h2>
+
+      <ul>
+        <% shipmentimport.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :shipments %>
+    <%= form.number_field :shipments %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :shipmentimports
   resources :parcels
   resources :shipments
   devise_for :users

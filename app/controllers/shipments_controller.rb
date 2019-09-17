@@ -15,6 +15,7 @@ class ShipmentsController < ApplicationController
   # GET /shipments/new
   def new
     @shipment = Shipment.new
+    @carriers = Carrier.all
   end
 
   # GET /shipments/1/edit
