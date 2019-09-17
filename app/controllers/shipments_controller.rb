@@ -15,11 +15,13 @@ class ShipmentsController < ApplicationController
   # GET /shipments/new
   def new
     @shipment = Shipment.new
+    @shipment.build_parcel
     @carriers = Carrier.all
   end
 
   # GET /shipments/1/edit
   def edit
+    @carriers = Carrier.all
   end
 
   # POST /shipments
@@ -27,7 +29,6 @@ class ShipmentsController < ApplicationController
   def create
     # @shipment = Shipment.new(shipment_params)
     @shipment = current_user.shipments.build(shipment_params)
-
     respond_to do |format|
       if @shipment.save
         format.html { redirect_to @shipment, notice: 'Shipment was successfully created.' }
@@ -71,6 +72,9 @@ class ShipmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shipment_params
-      params.require(:shipment).permit(:carrier_id, :tracking_number, :user_id)
+      params.require(:shipment).permit(:carrier_id, :tracking_number, :user_id,
+       parcel_attributes: [:_destroy, :id, :shipment_id, :length, :width, :height, :weight, :distance_unit, :mass_unit]
+
+      )
     end
 end

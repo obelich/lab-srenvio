@@ -20,3 +20,7 @@ En esta carpeta se encuentra el diagrama de la base de datos y otros archivos qu
 Para el diagrama de la base de datos se uso Mysql Workbrench
 
 ![Drag Racing](database_diagram.png)
+
+
+# Instalación
+
