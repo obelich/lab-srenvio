@@ -31,7 +31,6 @@ class ShipmentsController < ApplicationController
   # POST /shipments
   # POST /shipments.json
   def create
-    # @shipment = Shipment.new(shipment_params)
     @shipment = current_user.shipments.build(shipment_params)
     respond_to do |format|
       if @shipment.save

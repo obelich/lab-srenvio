@@ -25,9 +25,23 @@ class ShipmentimportsController < ApplicationController
   # POST /shipmentimports.json
   def create
     @shipmentimport = Shipmentimport.new(shipmentimport_params)
+    @shipmentimport.user_id = current_user.id
+    jsonfile = File.read(params[:shipmentimport][:jsonfile])
+    jsontohash = JSON.parse(jsonfile)
+    @shipmentimport.shipments = jsontohash.length
+    jsontohash.each do |shipment|
+      carrier = Carrier.where('lower(name) = ?', shipment['carrier'].downcase).first
+      shipment.delete('carrier')
+      shipment['carrier_id'] = carrier.id
+      shipment['user_id'] = current_user.id
+      shipment['parcel_attributes'] = shipment['parcel']
+      Shipment.create(shipment)
+    end
 
+    raise 'hola'
     respond_to do |format|
       if @shipmentimport.save
+
         format.html { redirect_to @shipmentimport, notice: 'Shipmentimport was successfully created.' }
         format.json { render :show, status: :created, location: @shipmentimport }
       else
@@ -69,6 +83,6 @@ class ShipmentimportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shipmentimport_params
-      params.require(:shipmentimport).permit(:shipments, :user_id, :shipmentimport)
+      params.require(:shipmentimport).permit(:shipments, :user_id, :jsonfile)
     end
 end

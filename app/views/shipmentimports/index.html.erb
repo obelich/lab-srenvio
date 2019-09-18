@@ -1,13 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Shipmentimports</h1>
+<h1>Listado de envios importados</h1>
 
-<table>
+<%= link_to 'Nueva importación', new_shipmentimport_path, class: 'btn btn-primary', role: 'button' %>
+<br /><br />
+<table class="table">
   <thead>
     <tr>
-      <th>Shipments</th>
-      <th>User</th>
-      <th colspan="3"></th>
+      <th>Envios</th>
+      <th>Usuario</th>
+      <th>Acciones</th>
     </tr>
   </thead>
 
@@ -16,9 +18,12 @@
       <tr>
         <td><%= shipmentimport.shipments %></td>
         <td><%= shipmentimport.user_id %></td>
-        <td><%= link_to 'Show', shipmentimport %></td>
-        <td><%= link_to 'Edit', edit_shipmentimport_path(shipmentimport) %></td>
-        <td><%= link_to 'Destroy', shipmentimport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to '<i class="fas fa-glasses fa-lg"></i>'.html_safe, shipmentimport, class: 'btn btn-secondary' %>
+          <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipmentimport_path(shipmentimport), class: 'btn btn-success' %>
+          <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, shipmentimport, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Shipmentimport', new_shipmentimport_path %>
+
