@@ -1,5 +1,6 @@
 class ShipmentsController < ApplicationController
   before_action :set_shipment, only: [:show, :edit, :update, :destroy]
+  before_action :set_catalog, only: [:new, :edit, :update, :create]
   before_action :authenticate_user!
   # GET /shipments
   # GET /shipments.json
@@ -16,12 +17,15 @@ class ShipmentsController < ApplicationController
   def new
     @shipment = Shipment.new
     @shipment.build_parcel
-    @carriers = Carrier.all
+
   end
 
   # GET /shipments/1/edit
   def edit
-    @carriers = Carrier.all
+    if !@shipment.parcel
+      @shipment.build_parcel
+
+    end
   end
 
   # POST /shipments
@@ -43,6 +47,8 @@ class ShipmentsController < ApplicationController
   # PATCH/PUT /shipments/1
   # PATCH/PUT /shipments/1.json
   def update
+    @carriers = Carrier.all
+
     respond_to do |format|
       if @shipment.update(shipment_params)
         format.html { redirect_to @shipment, notice: 'Shipment was successfully updated.' }
@@ -68,6 +74,10 @@ class ShipmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_shipment
       @shipment = Shipment.find(params[:id])
+    end
+
+    def set_catalog
+      @carriers = Carrier.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

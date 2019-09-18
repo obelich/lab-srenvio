@@ -5,6 +5,7 @@ Proyecto de prueba este pequeño sistema esta echo con el poder de Ruby On Rails
 
 * Ruby 2.6.3
 * Rails 6.0.0
+* Yarn 1.17.3
 * SqLite
 
 # Gemas
