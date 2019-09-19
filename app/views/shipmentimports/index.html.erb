@@ -7,8 +7,11 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Envios</th>
       <th>Usuario</th>
+      <th>Guias Importadas</th>
+      <th>Guias Ignoradas</th>
+      <th>Fecha</th>
+      <th>Hora</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -16,13 +19,14 @@
   <tbody>
     <% @shipmentimports.each do |shipmentimport| %>
       <tr>
+        <td><%= shipmentimport.user.email %></td>
         <td><%= shipmentimport.shipments %></td>
-        <td><%= shipmentimport.user_id %></td>
+        <td><%= shipmentimport.reject %></td>
+        <td><%= shipmentimport.created_at.strftime('%d-%m-%Y') %></td>
+        <td><%= shipmentimport.created_at.strftime('%H:%M') %></td>
         <td>
           <%= link_to '<i class="fas fa-glasses fa-lg"></i>'.html_safe, shipmentimport, class: 'btn btn-secondary' %>
-          <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipmentimport_path(shipmentimport), class: 'btn btn-success' %>
           <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, shipmentimport, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-
         </td>
       </tr>
     <% end %>

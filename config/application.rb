@@ -22,5 +22,6 @@ module LabSrenvio
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.i18n.default_locale = 'es-MX'
+    config.time_zone = 'Central Time (US & Canada)'
   end
 end

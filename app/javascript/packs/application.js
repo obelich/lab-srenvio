@@ -14,8 +14,27 @@ import "../stylesheets/application"
 document.addEventListener("turbolinks:load", () => {
     $('[data-toggle="tooltip"]').tooltip()
     $('[data-toggle="popover"]').popover()
-})
 
+    $(document).ready(function() {
+        $('input[type="file"]').on("change", function() {
+            let filenames = [];
+            let files = document.getElementById("customFile").files;
+            if (files.length > 1) {
+                filenames.push("Total Files (" + files.length + ")");
+            } else {
+                for (let i in files) {
+                    if (files.hasOwnProperty(i)) {
+                        filenames.push(files[i].name);
+                    }
+                }
+            }
+            $(this)
+                .next(".custom-file-label")
+                .html(filenames.join(","));
+        });
+    });
+
+})
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

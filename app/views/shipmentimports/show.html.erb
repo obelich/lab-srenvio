@@ -1,14 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Shipments:</strong>
-  <%= @shipmentimport.shipments %>
-</p>
+<div class="card text-center">
+  <div class="card-header">
+    Archivo importado por: <%= @shipmentimport.user.email %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Archivo <%= @shipmentimport.jsonfile.filename %></h5>
+    <p class="card-text">Se importaron <%= @shipmentimport.shipments %> guias y se ignoraron  <%= @shipmentimport.reject %> </p>
+    <%= link_to 'Regresar', shipmentimports_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, @shipmentimport, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>
 
-<p>
-  <strong>User:</strong>
-  <%= @shipmentimport.user_id %>
-</p>
+  </div>
+  <div class="card-footer text-muted">
+    Importado hace <%= time_ago_in_words(@shipmentimport.created_at) %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_shipmentimport_path(@shipmentimport) %> |
-<%= link_to 'Back', shipmentimports_path %>
+
+

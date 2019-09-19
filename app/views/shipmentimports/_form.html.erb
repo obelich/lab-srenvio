@@ -1,4 +1,6 @@
 <%= form_with(model: shipmentimport, local: true) do |form| %>
+
+
   <% if shipmentimport.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(shipmentimport.errors.count, "error") %> prohibited this shipmentimport from being saved:</h2>
@@ -10,13 +12,23 @@
       </ul>
     </div>
   <% end %>
+  <div class="container mt-5">
+    <h1 class="text-center">Importar Guias Json</h1>
+    <div class="col-sm-12 col-lg-4 mr-auto ml-auto border p-4">
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label><strong>Subir Archivo</strong></label>
+          <div class="custom-file">
+            <%= form.file_field :jsonfile, class: 'custom-file-input', id: 'customFile', required: 'required' %>
 
-  <div class="field">
-    <%= form.label :jsonfile %>
-    <%= form.file_field :jsonfile %>
+            <label class="custom-file-label" for="customFile">Seleccione Archivo</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= form.submit ' Importar', class: 'btn btn-block btn-dark' %>
+        </div>
+      </form>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

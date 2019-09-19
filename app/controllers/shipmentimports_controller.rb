@@ -29,26 +29,33 @@ class ShipmentimportsController < ApplicationController
     @shipmentimport.user_id = current_user.id
     jsonfile = File.read(params[:shipmentimport][:jsonfile])
     jsontohash = JSON.parse(jsonfile)
-    @shipmentimport.shipments = jsontohash.length
 
 
     respond_to do |format|
       if @shipmentimport.save
 
+        @shipmentimport.reject = 0
+        @shipmentimport.shipments = 0
         jsontohash.each do |shipment|
           carrier = Carrier.where('lower(name) = ?', shipment['carrier'].downcase).first
+          tracking_exist = Shipment.where(tracking_number: shipment['tracking_number']).first
+          if tracking_exist
+            @shipmentimport.reject += 1
+          else
+            @shipmentimport.shipments += 1
+            shipment.delete('carrier')
+            shipment['carrier_id'] = carrier.id
+            shipment['user_id'] = current_user.id
+            shipment['parcel_attributes'] = shipment['parcel']
+            shipment.delete('parcel')
 
+            Shipment.create(shipment)
+          end
 
-          shipment.delete('carrier')
-          shipment['carrier_id'] = carrier.id
-          shipment['user_id'] = current_user.id
-          shipment['parcel_attributes'] = shipment['parcel']
-          shipment.delete('parcel')
-
-          Shipment.create(shipment)
         end
+        @shipmentimport.save
 
-        format.html { redirect_to @shipmentimport, notice: 'Shipmentimport was successfully created.' }
+        format.html { redirect_to @shipmentimport, notice: "El archivo #{@shipmentimport.jsonfile.filename.to_s}  se importaron #{@shipmentimport.shipments} y no se importaron #{@shipmentimport.reject} guias" }
         format.json { render :show, status: :created, location: @shipmentimport }
       else
         format.html { render :new }
