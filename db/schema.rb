@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_17_041608) do
+ActiveRecord::Schema.define(version: 2019_09_18_074648) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 2019_09_17_041608) do
 
   create_table "parcels", force: :cascade do |t|
     t.integer "shipment_id", null: false
-    t.integer "length", null: false
-    t.integer "width", null: false
-    t.integer "height", null: false
-    t.integer "weight", null: false
+    t.decimal "length", precision: 5, scale: 2, null: false
+    t.decimal "width", precision: 5, scale: 2, null: false
+    t.decimal "height", precision: 5, scale: 2, null: false
+    t.decimal "weight", precision: 5, scale: 2, null: false
     t.string "distance_unit", null: false
     t.string "mass_unit", null: false
     t.datetime "created_at", precision: 6, null: false

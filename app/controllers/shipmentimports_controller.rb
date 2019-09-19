@@ -25,22 +25,28 @@ class ShipmentimportsController < ApplicationController
   # POST /shipmentimports.json
   def create
     @shipmentimport = Shipmentimport.new(shipmentimport_params)
+
     @shipmentimport.user_id = current_user.id
     jsonfile = File.read(params[:shipmentimport][:jsonfile])
     jsontohash = JSON.parse(jsonfile)
     @shipmentimport.shipments = jsontohash.length
-    jsontohash.each do |shipment|
-      carrier = Carrier.where('lower(name) = ?', shipment['carrier'].downcase).first
-      shipment.delete('carrier')
-      shipment['carrier_id'] = carrier.id
-      shipment['user_id'] = current_user.id
-      shipment['parcel_attributes'] = shipment['parcel']
-      Shipment.create(shipment)
-    end
 
-    raise 'hola'
+
     respond_to do |format|
       if @shipmentimport.save
+
+        jsontohash.each do |shipment|
+          carrier = Carrier.where('lower(name) = ?', shipment['carrier'].downcase).first
+
+
+          shipment.delete('carrier')
+          shipment['carrier_id'] = carrier.id
+          shipment['user_id'] = current_user.id
+          shipment['parcel_attributes'] = shipment['parcel']
+          shipment.delete('parcel')
+
+          Shipment.create(shipment)
+        end
 
         format.html { redirect_to @shipmentimport, notice: 'Shipmentimport was successfully created.' }
         format.json { render :show, status: :created, location: @shipmentimport }
