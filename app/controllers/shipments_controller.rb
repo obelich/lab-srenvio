@@ -5,7 +5,7 @@ class ShipmentsController < ApplicationController
   # GET /shipments
   # GET /shipments.json
   def index
-    @shipments = Shipment.all
+    @shipments = Shipment.order("created_at DESC").page(params[:page]).per(5)
   end
 
   # GET /shipments/1

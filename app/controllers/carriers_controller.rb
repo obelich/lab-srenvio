@@ -5,7 +5,7 @@ class CarriersController < ApplicationController
   # GET /carriers
   # GET /carriers.json
   def index
-    @carriers = Carrier.all
+    @carriers = Carrier.order("created_at DESC").page(params[:page]).per(5)
   end
 
   # GET /carriers/1

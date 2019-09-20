@@ -6,6 +6,5 @@ class Shipment < ApplicationRecord
   validates :carrier_id, :user_id, presence: true
 
 
-
   accepts_nested_attributes_for :parcel, allow_destroy: true, reject_if: proc { |attr| attr['length'].blank? }
 end
