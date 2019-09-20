@@ -43,6 +43,53 @@ class ShipmentsController < ApplicationController
     end
   end
 
+  def gen_label
+    fedex = Fedex::Shipment.new(:key => 'jfjwKS65xft8r8mh',
+                                :password => 'QYrbniTyMafyj4LXm4tV7nsq5',
+                                :account_number => '802388543',
+                                :meter => '119147906',
+                                :mode => 'development')
+
+
+    shipper = { :name => "Sender",
+                :company => "Company",
+                :phone_number => "555-555-5555",
+                :address => "Main Street",
+                :city => "Harrison",
+                :state => "AR",
+                :postal_code => "72601",
+                :country_code => "US" }
+
+    recipient = { :name => "Recipient",
+                  :company => "Company",
+                  :phone_number => "555-555-5555",
+                  :address => "Main Street",
+                  :city => "Franklin Park",
+                  :state => "IL",
+                  :postal_code => "60131",
+                  :country_code => "US",
+                  :residential => "true" }
+
+    packages = [{
+                    :weight => {:units => "KG", :value =>1},
+                    :dimensions => {:length =>20, :width =>20, :height =>10, :units =>"CM" }}]
+
+    shipping_options = {
+        :packaging_type => "YOUR_PACKAGING",
+        :drop_off_type => "REGULAR_PICKUP"
+    }
+
+    rate = fedex.rate(:shipper=>shipper,
+                      :recipient => recipient,
+                      :packages => packages,
+                      :service_type => "FEDEX_GROUND",
+                      :shipping_options => shipping_options)
+
+
+    raise rate.inspect
+
+  end
+
   # PATCH/PUT /shipments/1
   # PATCH/PUT /shipments/1.json
   def update
