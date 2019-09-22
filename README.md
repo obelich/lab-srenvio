@@ -25,3 +25,15 @@ Para el diagrama de la base de datos se uso Mysql Workbrench
 
 # Instalación
 
+* git clone https://github.com/obelich/lab-srenvio.git
+* cd lab-srenvio
+* bundle install
+* yarn install
+* rails db:migrate
+* rail db:seed
+
+Acceso al sistema
+
+Usuario: admin@srenvio.com
+Password: renvios@321
+
