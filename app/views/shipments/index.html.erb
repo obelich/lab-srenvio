@@ -24,7 +24,7 @@
         <td><%= shipment.created_at.strftime('%d-%m-%Y') %></td>
         <td><%= shipment.created_at.strftime('%H:%M') %></td>
         <td>
-          <%= link_to 'prueba'.html_safe, rates_shipments_path, class: 'btn btn-secondary' %>
+          <%= link_to 'prueba'.html_safe, rates_shipments_path(shipment), class: 'btn btn-secondary' %>
           <%= link_to '<i class="fas fa-glasses fa-lg"></i>'.html_safe, shipment, class: 'btn btn-secondary' %>
           <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipment_path(shipment), class: 'btn btn-success' %>
           <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, shipment, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>

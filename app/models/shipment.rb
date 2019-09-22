@@ -7,4 +7,15 @@ class Shipment < ApplicationRecord
 
 
   accepts_nested_attributes_for :parcel, allow_destroy: true, reject_if: proc { |attr| attr['length'].blank? }
+
+
+
+  def self.gen_tracking_number
+    loop do
+      tracking_number = SecureRandom.random_number(999999999999999)
+      break tracking_number unless Shipment.where(tracking_number: tracking_number).exists?
+    end
+  end
+
+
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :shipmentimports
   resources :parcels
   resources :shipments do
-    get 'paquee', to: 'shipments#gen_label', on: :collection, as: 'rates'
+    get 'paquee/:id', to: 'shipments#gen_label', on: :collection, as: 'rates'
   end
   devise_for :users
   resources :carriers

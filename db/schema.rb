@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_040908) do
+ActiveRecord::Schema.define(version: 2019_09_22_070251) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_09_19_040908) do
     t.string "mass_unit", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "volumenweight", precision: 5, scale: 2, default: "0.0"
     t.index ["shipment_id"], name: "index_parcels_on_shipment_id"
   end
 

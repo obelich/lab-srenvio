@@ -1,5 +1,5 @@
 class ShipmentsController < ApplicationController
-  before_action :set_shipment, only: [:show, :edit, :update, :destroy]
+  before_action :set_shipment, only: [:show, :edit, :update, :destroy, :gen_label]
   before_action :set_catalog, only: [:new, :edit, :update, :create]
   before_action :authenticate_user!
   # GET /shipments
@@ -16,6 +16,7 @@ class ShipmentsController < ApplicationController
   # GET /shipments/new
   def new
     @shipment = Shipment.new
+    @shipment.tracking_number = Shipment.gen_tracking_number
     @shipment.build_parcel
 
   end
@@ -44,11 +45,11 @@ class ShipmentsController < ApplicationController
   end
 
   def gen_label
-    fedex = Fedex::Shipment.new(:key => 'jfjwKS65xft8r8mh',
-                                :password => 'QYrbniTyMafyj4LXm4tV7nsq5',
-                                :account_number => '802388543',
-                                :meter => '119147906',
-                                :mode => 'development')
+    fedex = Fedex::Shipment.new(:key => ENV['SRENVIO_FEDEX_KEY'],
+                                :password => ENV['SRENVIO_FEDEX_PASSWORD'],
+                                :account_number => ENV['SRENVIO_FEDEX_ACCOUNT'],
+                                :meter => ENV['SRENVIO_FEDEX_MASTER'],
+                                :mode => ENV['SRENVIO_FEDEX_MODE'])
 
 
     shipper = { :name => "Sender",
@@ -68,16 +69,17 @@ class ShipmentsController < ApplicationController
                   :state => "IL",
                   :postal_code => "60131",
                   :country_code => "US",
-                  :residential => "true" }
+                  :residential => "false" }
 
     packages = [{
-                    :weight => {:units => "KG", :value =>1},
-                    :dimensions => {:length =>20, :width =>20, :height =>10, :units =>"CM" }}]
+                :weight => {:units => @shipment.parcel.mass_unit, :value =>@shipment.parcel.weight.to_f.ceil},
+                :dimensions => {:length =>@shipment.parcel.length.to_i, :width =>@shipment.parcel.width.to_i, :height =>@shipment.parcel.height.to_i, :units =>@shipment.parcel.distance_unit }}]
 
     shipping_options = {
         :packaging_type => "YOUR_PACKAGING",
         :drop_off_type => "REGULAR_PICKUP"
     }
+
 
     rate = fedex.rate(:shipper=>shipper,
                       :recipient => recipient,
@@ -86,8 +88,15 @@ class ShipmentsController < ApplicationController
                       :shipping_options => shipping_options)
 
 
+    volumen = calc_vol_weight(@shipment.parcel.length, @shipment.parcel.height, @shipment.parcel.width).ceil
     raise rate.inspect
 
+  end
+
+  def calc_vol_weight(length, height, width)
+    original_volume = length.to_f * height.to_f * width.to_f
+
+    result = 0.5  * ((original_volume / 5000).ceil / 0.5 )
   end
 
   # PATCH/PUT /shipments/1
