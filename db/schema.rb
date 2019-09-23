@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2019_09_23_020057) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.decimal "total_base_charge", precision: 5, scale: 2, default: "0.0"
-    t.decimal "total_net_freight", precision: 5, scale: 2, default: "0.0"
+    t.decimal "total_surcharges", precision: 5, scale: 2, default: "0.0"
     t.decimal "total_net_charge", precision: 5, scale: 2, default: "0.0"
     t.index ["carrier_id"], name: "index_shipments_on_carrier_id"
     t.index ["tracking_number"], name: "index_shipments_on_tracking_number", unique: true

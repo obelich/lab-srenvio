@@ -11,7 +11,9 @@
       <th>Número de rastreo</th>
       <th>Transportista</th>
       <th>Peso Total</th>
-
+      <th>Fedex base</th>
+      <th>Peso extra</th>
+      <th>Peso Total Fedex</th>
       <th>Fecha</th>
       <th>Hora</th>
       <th>Acciones</th>
@@ -24,14 +26,16 @@
         <td><%= shipment.tracking_number %></td>
         <td><%= shipment.carrier.name %></td>
         <td><%= shipment.parcel.volumenweight %></td>
+        <td><%= shipment.total_base_charge %></td>
+        <td><%= shipment.total_surcharges %></td>
+        <td><%= shipment.total_net_charge %></td>
         <td><%= shipment.created_at.strftime('%d-%m-%Y') %></td>
         <td><%= shipment.created_at.strftime('%H:%M') %></td>
         <td>
-
           <%= link_to '<i class="fas fa-glasses fa-lg"></i>'.html_safe, shipment, class: 'btn btn-secondary' %>
-          <%= link_to '<i class="fab fa-fedex fa-lg "></i>'.html_safe, fedex_shipments_path(shipment), class: 'btn btn-info', method: :post %>
-          <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipment_path(shipment), class: 'btn btn-success' %>
-          <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, shipment, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>
+          <%= link_to '<i class="fab fa-fedex fa-lg "></i>'.html_safe, fedex_shipments_path(shipment), class: 'btn btn-info', method: :post unless shipment.total_base_charge != 0.0 %>
+          <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipment_path(shipment), class: 'btn btn-success' unless shipment.total_base_charge != 0.0 %>
+          <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, shipment, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' unless shipment.total_base_charge != 0.0 %>
 
         </td>
       </tr>

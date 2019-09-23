@@ -39,7 +39,7 @@
 
       <li class="list-group-item d-flex justify-content-between align-items-center">
         Peso extra:
-        <span class="badge badge-primary badge-pill"><%= @shipment.total_net_freight %></span>
+        <span class="badge badge-primary badge-pill"><%= @shipment.total_surcharges %></span>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -51,7 +51,7 @@
 
     <br />
     <br />
-    <%= link_to 'Regresar', shipmentimports_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, @shipmentimport, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>
+    <%= link_to 'Regresar', shipments_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, @shipment, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' unless @shipment.total_base_charge != 0.0 %>
 
   </div>
   <div class="card-footer text-muted">

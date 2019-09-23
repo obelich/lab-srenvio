@@ -90,16 +90,14 @@ class ShipmentsController < ApplicationController
                       :service_type => "FEDEX_GROUND",
                       :shipping_options => shipping_options)
 
+    # raise rate.inspect
 
-    volumen = calc_vol_weight(@shipment.parcel.length, @shipment.parcel.height, @shipment.parcel.width).ceil
-    raise rate.inspect
+    @shipment.total_base_charge = rate[0].total_base_charge.to_f
+    @shipment.total_surcharges = rate[0].total_surcharges.to_f
+    @shipment.total_net_charge = rate[0].total_net_charge.to_f
+    @shipment.save
+    redirect_to shipments_path, notice: 'Fedex generado'
 
-  end
-
-  def calc_vol_weight(length, height, width)
-    original_volume = length.to_f * height.to_f * width.to_f
-
-    result = 0.5  * ((original_volume / 5000).ceil / 0.5 )
   end
 
   # PATCH/PUT /shipments/1
