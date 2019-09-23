@@ -1,5 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<div class="card text-center">
+  <div class="card-header">
+    Envío generado por: <%= @shipment.user.email %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Guia  <%= @shipment.tracking_number %></h5>
+    <p class="card-text"> </p>
+    <%= link_to 'Regresar', shipmentimports_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, @shipmentimport, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>
+
+  </div>
+  <div class="card-footer text-muted">
+    Importado hace <%= time_ago_in_words(@shipment.created_at) %>
+  </div>
+</div>
+
+
 <p>
   <strong>Carrier:</strong>
   <%= @shipment.carrier_id %>

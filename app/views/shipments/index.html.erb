@@ -10,6 +10,8 @@
     <tr>
       <th>Número de rastreo</th>
       <th>Transportista</th>
+      <th>Peso Total</th>
+
       <th>Fecha</th>
       <th>Hora</th>
       <th>Acciones</th>
@@ -21,6 +23,7 @@
       <tr>
         <td><%= shipment.tracking_number %></td>
         <td><%= shipment.carrier.name %></td>
+        <td><%= shipment.parcel.volumenweight %></td>
         <td><%= shipment.created_at.strftime('%d-%m-%Y') %></td>
         <td><%= shipment.created_at.strftime('%H:%M') %></td>
         <td>

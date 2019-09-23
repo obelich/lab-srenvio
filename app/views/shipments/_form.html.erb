@@ -11,15 +11,17 @@
     </div>
   <% end %>
 
-  <div>
-    <label>Transportista</label> <br />
-    <%= form.collection_select :carrier_id, @carriers.order(:name),:id,:name,{ include_blank: true}, { class: 'form-control col-md-2'} %>
-
-  </div>
-
   <div class="field">
     <%= form.label :tracking_number, 'Número de guia' %>
-    <%= form.text_field :tracking_number, class: 'form-control col-md-2' %>
+    <input type="text" value="<%= @shipment.tracking_number %>" readonly class="form-control col-md-2">
+    <%= form.hidden_field :tracking_number %>
+  </div>
+
+
+  <div>
+    <label>Transportista</label> <br />
+    <%= form.collection_select :carrier_id, @carriers.order(:name),:id,:name,{ include_blank: true}, { class: 'form-control col-md-2', required: true} %>
+
   </div>
 
   <div>
@@ -27,32 +29,34 @@
     <%= form.fields_for :parcel do |parcel_form| %>
       <div class="field">
         <%= parcel_form.label :length, 'Longitud' %>
-        <%= parcel_form.number_field :length, class: 'form-control col-md-2', step: :any %>
+        <%= parcel_form.number_field :length, class: 'form-control col-md-2', step: :any, :required => true %>
       </div>
 
       <div class="field">
         <%= parcel_form.label :width, 'Ancho' %>
-        <%= parcel_form.number_field :width, class: 'form-control col-md-2', step: :any %>
+        <%= parcel_form.number_field :width, class: 'form-control col-md-2', step: :any, :required => true %>
       </div>
 
       <div class="field">
         <%= parcel_form.label :height, 'Alto' %>
-        <%= parcel_form.number_field :height, class: 'form-control col-md-2', step: :any %>
+        <%= parcel_form.number_field :height, class: 'form-control col-md-2', step: :any, :required => true %>
       </div>
 
       <div class="field">
         <%= parcel_form.label :weight, 'Peso' %>
-        <%= parcel_form.number_field :weight, class: 'form-control col-md-2', step: :any %>
+        <%= parcel_form.number_field :weight, class: 'form-control col-md-2', step: :any, :required => true %>
       </div>
 
       <div class="field">
         <%= parcel_form.label :distance_unit, 'Unidad de distancia' %>
-        <%= parcel_form.text_field :distance_unit, class: 'form-control col-md-2' %>
+        <input type="text" value="CM" readonly class="form-control col-md-2">
+        <%= parcel_form.hidden_field :distance_unit, class: 'form-control col-md-2', value: 'CM' %>
       </div>
 
       <div class="field">
         <%= parcel_form.label :mass_unit, 'Unidad de masa' %>
-        <%= parcel_form.text_field :mass_unit, class: 'form-control col-md-2' %>
+        <input type="text" value="KG" readonly class="form-control col-md-2">
+        <%= parcel_form.hidden_field :mass_unit, class: 'form-control col-md-2', value: 'KG' %>
       </div>
     <% end %>
 

@@ -73,7 +73,10 @@ class ShipmentsController < ApplicationController
 
     packages = [{
                 :weight => {:units => @shipment.parcel.mass_unit, :value =>@shipment.parcel.weight.to_f.ceil},
-                :dimensions => {:length =>@shipment.parcel.length.to_i, :width =>@shipment.parcel.width.to_i, :height =>@shipment.parcel.height.to_i, :units =>@shipment.parcel.distance_unit }}]
+                :dimensions => {
+                    :length =>@shipment.parcel.length.to_i, :width =>@shipment.parcel.width.to_i,
+                    :height =>@shipment.parcel.height.to_i, :units =>@shipment.parcel.distance_unit
+                }}]
 
     shipping_options = {
         :packaging_type => "YOUR_PACKAGING",
@@ -138,7 +141,7 @@ class ShipmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def shipment_params
       params.require(:shipment).permit(:carrier_id, :tracking_number, :user_id,
-       parcel_attributes: [:_destroy, :id, :shipment_id, :length, :width, :height, :weight, :distance_unit, :mass_unit]
+       parcel_attributes: [:_destroy, :id, :shipment_id, :length, :width, :height, :weight, :distance_unit, :mass_unit, :total_base_charge, :total_net_freight, :total_net_charge]
 
       )
     end

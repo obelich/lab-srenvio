@@ -1,4 +1,5 @@
 class Shipment < ApplicationRecord
+  belongs_to :user
   belongs_to :carrier
   has_one :parcel, dependent: :destroy
 
