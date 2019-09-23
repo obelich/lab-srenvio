@@ -5,25 +5,57 @@
     Envío generado por: <%= @shipment.user.email %>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Guia  <%= @shipment.tracking_number %></h5>
-    <p class="card-text"> </p>
+    <h5 class="card-title">Guia  <b><%= @shipment.tracking_number %></b></h5>
+    <p class="card-text">Transportista: <b><%= @shipment.carrier.name %></b> </p>
+
+    <div class="row col-12 justify-content-md-center">
+
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Longitud:
+        <span class="badge badge-primary badge-pill"><%= @shipment.parcel.length %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Ancho:
+        <span class="badge badge-primary badge-pill"><%= @shipment.parcel.width %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Alto:
+        <span class="badge badge-primary badge-pill"><%= @shipment.parcel.height %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Peso:
+        <span class="badge badge-primary badge-pill"><%= @shipment.parcel.weight %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Peso Total:
+        <span class="badge badge-primary badge-pill"><%= @shipment.parcel.volumenweight %></span>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Fedex base:
+        <span class="badge badge-primary badge-pill"><%= @shipment.total_base_charge %></span>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Peso extra:
+        <span class="badge badge-primary badge-pill"><%= @shipment.total_net_freight %></span>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Peso Total Fedex:
+        <span class="badge badge-primary badge-pill"><%= @shipment.total_net_charge %></span>
+      </li>
+    </ul>
+    </div>
+
+    <br />
+    <br />
     <%= link_to 'Regresar', shipmentimports_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-trash fa-lg"></i>'.html_safe, @shipmentimport, method: :delete, data: { confirm: 'Estas seguro?' }, class: 'btn btn-danger' %>
 
   </div>
   <div class="card-footer text-muted">
-    Importado hace <%= time_ago_in_words(@shipment.created_at) %>
+    Envío creado hace <%= time_ago_in_words(@shipment.created_at) %>
   </div>
 </div>
 
-
-<p>
-  <strong>Carrier:</strong>
-  <%= @shipment.carrier_id %>
-</p>
-
-<p>
-  <strong>Tracking number:</strong>
-  <%= @shipment.tracking_number %>
-</p>
-
-<%= link_to 'Regresar', shipments_path, class: 'btn btn-secondary' %>  <%= link_to '<i class="fas fa-edit fa-lg"></i>'.html_safe, edit_shipment_path(@shipment), class: 'btn btn-success' %>

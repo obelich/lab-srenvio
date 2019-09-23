@@ -22,7 +22,18 @@ Para el diagrama de la base de datos se uso Mysql Workbrench
 
 ![Drag Racing](database_diagram.png)
 
+# Variables de entorno 
 
+Llenar cada una de ellas con sus respectivos valores
+
+estas variables se tienen que agregar en `.bashrc` en Gnu/Linux 
+```
+export SRENVIO_FEDEX_KEY=''
+export SRENVIO_FEDEX_PASSWORD=''
+export SRENVIO_FEDEX_ACCOUNT=''
+export SRENVIO_FEDEX_MASTER=''
+export SRENVIO_FEDEX_MODE='development'
+```
 # Instalación
 
 * git clone https://github.com/obelich/lab-srenvio.git
@@ -38,5 +49,17 @@ Usuario: admin@srenvio.com
 
 Password: renvios@321
 
+# Ejecución en modo desarrollo
+En una terminal ejecutamos 
+
+```
+rails s
+```
+
+En otra terminal ejecutamos
+
+```
+ ./bin/webpack-dev-server
+```
 
 
